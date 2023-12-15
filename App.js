@@ -1,6 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { Login, Signup, Welcome, HomePage, BreakfastPage } from "./screens";
+import { Login, Signup, Welcome, HomePage, BreakfastPage, TermsAndConditions, FirstPage, MorningSnackPage, LunchPage, AfternoonSnackPage, EveningSnackPage, DinnerPage } from "./screens";
 
 const Stack = createNativeStackNavigator();
 
@@ -46,6 +46,63 @@ export default function App() {
             headerShown: false,
           }}
         />
+
+        <Stack.Screen
+          name="TermsAndConditions"
+          component={TermsAndConditions}
+          options={{
+            headerShown: false,
+          }}
+        />
+
+        <Stack.Screen
+          name="FirstPage"
+          component={FirstPage}
+          options={{
+            headerShown: false
+          }}
+          />
+
+        <Stack.Screen
+          name="MorningSnackPage"
+          component={MorningSnackPage}
+          options={{
+            headerShown: false
+          }}
+          />
+
+        <Stack.Screen
+          name="LunchPage"
+          component={LunchPage}
+          options={{
+            headerShown: false
+          }}
+          />
+
+        <Stack.Screen
+          name="AfternoonSnackPage"
+          component={AfternoonSnackPage}
+          options={{
+            headerShown: false
+          }}
+          />
+
+        <Stack.Screen
+          name="EveningSnackPage"
+          component={EveningSnackPage}
+          options={{
+            headerShown: false
+          }}
+          />
+
+        <Stack.Screen
+          name="DinnerPage"
+          component={DinnerPage}
+          options={{
+            headerShown: false
+          }}
+          />
+          
       </Stack.Navigator>
     </NavigationContainer>
   );

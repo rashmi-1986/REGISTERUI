@@ -6,10 +6,12 @@ import { Ionicons } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox"
 import Button from '../components/Button';
 
+
 const Login = ({ navigation }) => {
     const [isPasswordShown, setIsPasswordShown] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
-    
+   
+
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
             <View style={{ flex: 1, marginHorizontal: 22 }}>
@@ -34,7 +36,7 @@ const Login = ({ navigation }) => {
                         fontSize: 16,
                         fontWeight: 400,
                         marginVertical: 8
-                    }}>ID number</Text>
+                    }}>Email address</Text>
 
                     <View style={{
                         width: "100%",
@@ -47,7 +49,7 @@ const Login = ({ navigation }) => {
                         paddingLeft: 22
                     }}>
                         <TextInput
-                            placeholder='ID number'
+                            placeholder='Enter your email address'
                             placeholderTextColor={COLORS.black}
                             keyboardType='email-address'
                             style={{
@@ -113,7 +115,7 @@ const Login = ({ navigation }) => {
                         color={isChecked ? COLORS.primary : undefined}
                     />
 
-                    <Text>Remenber Me</Text>
+                    <Text>Remember Me</Text>
                 </View>
 
                 <Button
@@ -213,6 +215,10 @@ const Login = ({ navigation }) => {
                     <Pressable
                         onPress={() => navigation.navigate("Signup")}
                     >
+                        <Text style={{ fontSize: 16, color: COLORS.black }}> HomePage! </Text>
+                    <Pressable
+                        onPress={() => navigation.navigate("HomePage")}
+                    ></Pressable>
                         <Text style={{
                             fontSize: 16,
                             color: COLORS.primary,

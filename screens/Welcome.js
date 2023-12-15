@@ -130,6 +130,14 @@ const Welcome = ({ navigation }) => {
                             width: "100%"
                         }}
                     />
+                    <Button
+                        title="Morning Snacks Page"
+                        onPress={() => navigation.navigate("MorningSnackPage")}
+                        style={{
+                            marginTop: 22,
+                            width: "100%"
+                        }}
+                    />
 
                     <View style={{
                         flexDirection: "row",
