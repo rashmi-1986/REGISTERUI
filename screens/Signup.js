@@ -1,18 +1,44 @@
 import React, { useState } from 'react';
-import { View, Text, Image, Pressable, TextInput, TouchableOpacity }from 'react-native';
+import { View, Text, Image, Pressable, TextInput, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import COLORS from '../constants/colors';
 import { Ionicons } from '@expo/vector-icons';
 import Checkbox from 'expo-checkbox';
 import Button from '../components/Button';
 import TermsAndConditions from './TermsAndConditions';
+import axios from 'axios'; // Import Axios
 
 const Signup = ({ navigation }) => {
   const [isPasswordShown, setIsPasswordShown] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const [email, setEmail] = useState('');
+  const [idNumber, setIdNumber] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleTermsLinkPress = () => {
     navigation.navigate('TermsAndConditions');
+  };
+
+  const handleSignUp = async () => {
+    try {
+      const userData = {
+        
+        IDnumber: idNumber,
+        username: email,
+        password: password,
+      };
+
+      console.log('SignUp Payload:', userData);
+
+      // Adjust the API endpoint based on your backend
+      const response = await axios.post('http://localhost:3000/auth/register', userData);
+
+      console.log('User registration successful:', response.data);
+      // Add navigation or other logic as needed
+    } catch (error) {
+      console.error('Error signing up:', error);
+      // Handle error appropriately
+    }
   };
 
   return (
@@ -26,8 +52,9 @@ const Signup = ({ navigation }) => {
           <Text style={{ fontSize: 16, color: COLORS.black }}>Connect with your friend today!</Text>
         </View>
 
+
         <View style={{ marginBottom: 12 }}>
-          <Text style={{ fontSize: 16, fontWeight: 400, marginVertical: 8 }}>Email address</Text>
+          <Text style={{ fontSize: 16, fontWeight: '400', marginVertical: 8 }}>IDnumber</Text>
 
           <View
             style={{
@@ -42,57 +69,21 @@ const Signup = ({ navigation }) => {
             }}
           >
             <TextInput
-              placeholder="Enter your email address"
-              placeholderTextColor={COLORS.black}
-              keyboardType="email-address"
-              style={{
-                width: '100%',
-              }}
-            />
+                   placeholder="Enter your ID number"
+                   placeholderTextColor={COLORS.black}
+                   keyboardType="numeric"
+                   style={{
+                   width: '80%',
+                          }}
+                   value={idNumber}
+                   onChangeText={(text) => setIdNumber(text)}
+/>
+
           </View>
         </View>
 
         <View style={{ marginBottom: 12 }}>
-          <Text style={{ fontSize: 16, fontWeight: 400, marginVertical: 8 }}>ID Number</Text>
-
-          <View
-            style={{
-              width: '100%',
-              height: 48,
-              borderColor: COLORS.black,
-              borderWidth: 1,
-              borderRadius: 8,
-              alignItems: 'center',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              paddingLeft: 22,
-            }}
-          >
-            <TextInput
-              placeholder="+46"
-              placeholderTextColor={COLORS.black}
-              keyboardType="numeric"
-              style={{
-                width: '12%',
-                borderRightWidth: 1,
-                borderLeftColor: COLORS.grey,
-                height: '100%',
-              }}
-            />
-
-            <TextInput
-              placeholder="Enter your ID number"
-              placeholderTextColor={COLORS.black}
-              keyboardType="numeric"
-              style={{
-                width: '80%',
-              }}
-            />
-          </View>
-        </View>
-
-        <View style={{ marginBottom: 12 }}>
-          <Text style={{ fontSize: 16, fontWeight: 400, marginVertical: 8 }}>Password</Text>
+          <Text style={{ fontSize: 16, fontWeight: '400', marginVertical: 8 }}>Username</Text>
 
           <View
             style={{
@@ -107,64 +98,60 @@ const Signup = ({ navigation }) => {
             }}
           >
             <TextInput
-              placeholder="Enter your password"
+              placeholder="Username"
               placeholderTextColor={COLORS.black}
-              secureTextEntry={isPasswordShown}
+              keyboardType="username"
               style={{
                 width: '100%',
               }}
+              value={email}
+              onChangeText={(text) => setEmail(text)}
             />
-
-            <TouchableOpacity
-              onPress={() => setIsPasswordShown(!isPasswordShown)}
-              style={{
-                position: 'absolute',
-                right: 12,
-              }}
-            >
-              {isPasswordShown == true ? (
-                <Ionicons name="eye-off" size={24} color={COLORS.black} />
-              ) : (
-                <Ionicons name="eye" size={24} color={COLORS.black} />
-              )}
-            </TouchableOpacity>
           </View>
         </View>
-        
-        <Checkbox
-              style={{ marginRight: 8 }}
-              value={isChecked}
-              onValueChange={setIsChecked}
-              color={isChecked ? COLORS.primary : undefined}
-            />
-        <Pressable onPress={handleTermsLinkPress}>
+
+        <View style={{ marginBottom: 12 }}>
+          <Text style={{ fontSize: 16, fontWeight: '400', marginVertical: 8 }}>Password</Text>
+
           <View
             style={{
-              flexDirection: 'row',
-              marginVertical: 6,
+              width: '100%',
+              height: 48,
+              borderColor: COLORS.black,
+              borderWidth: 1,
+              borderRadius: 8,
               alignItems: 'center',
+              justifyContent: 'center',
+              paddingLeft: 22,
             }}
           >
-            
-            <Text>
-              I agree to the{' '}
-              <Text style={{ color: COLORS.primary, textDecorationLine: 'underline' }}>
-                terms and conditions
-              </Text>
-            </Text>
+            <TextInput
+                placeholder="Password"
+                placeholderTextColor={COLORS.black}
+                secureTextEntry={isPasswordShown}
+                style={{
+                 width: '100%',
+                          }}
+                value={password}
+                onChangeText={(text) => setPassword(text)}
+/>
+
           </View>
-        </Pressable>
+        </View>
+
+        {/* ... (Similar modifications for ID Number and Password fields) */}
 
         <Button
           title="Sign Up"
           filled
+          onPress={handleSignUp}
           style={{
             marginTop: 18,
             marginBottom: 4,
           }}
         />
-
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 20 }}>
+         <View style={{ flexDirection: 'row', alignItems: 'center',
+marginVertical: 20 }}>
           <View
             style={{
               flex: 1,
@@ -240,8 +227,10 @@ const Signup = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
-        <View style={{ flexDirection: 'row', justifyContent: 'center', marginVertical: 22 }}>
-          <Text style={{ fontSize: 16, color: COLORS.black }}>Already have an account</Text>
+        <View style={{ flexDirection: 'row', justifyContent: 'center',
+marginVertical: 22 }}>
+          <Text style={{ fontSize: 16, color: COLORS.black }}>Already
+have an account</Text>
           <Pressable onPress={() => navigation.navigate('Login')}>
             <Text
               style={{
@@ -255,6 +244,8 @@ const Signup = ({ navigation }) => {
             </Text>
           </Pressable>
         </View>
+
+        {/* ... (Existing code) */}
       </View>
     </SafeAreaView>
   );

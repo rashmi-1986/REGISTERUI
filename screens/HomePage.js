@@ -18,7 +18,6 @@ const HomePage = () => {
   const [selectedDinnerCategory, setSelectedDinnerCategory] = useState(null);
 
   const [isDagensMenuVisible, setDagensMenuVisible] = useState(false);
-
   const [isSubMenuVisible, setSubMenuVisible] = useState(false);
   const [selectedDagensMenuItem, setSelectedDagensMenuItem] = useState(null);
 
@@ -55,7 +54,6 @@ const HomePage = () => {
 
   const toggleDagensMenu = () => {
     setDagensMenuVisible(!isDagensMenuVisible);
-    // Ensure the submenu is closed when toggling Dagens Menu.
     if (isSubMenuVisible) {
       toggleSubMenu();
     }
@@ -73,12 +71,20 @@ const HomePage = () => {
     navigation.navigate('BreakfastPage');
   };
 
-  const navigateToMenuSelection = () => {
+  const navigateToFirstPage = () => {
     navigation.navigate('FirstPage');
   };
 
-  const dagensMenuItems = ['Dagens Menu'];
-  const subMenuItems = ['Breakfast', 'Snacks1', 'Lunch', 'Snacks2', 'Dinner'];
+  const navigateToMenuSelection = () => {
+    // Replace 'MenuSelectionPage' with the actual page you want to navigate to.
+    navigation.navigate('MenuSelectionPage', {
+      breakfastCategory: selectedBreakfastCategory,
+      snacksCategory: selectedSnacksCategory,
+      lunchCategory: selectedLunchCategory,
+      snacks2Category: selectedSnacks2Category,
+      dinnerCategory: selectedDinnerCategory,
+    });
+  };
 
   return (
     <View style={{ flex: 1 }}>
@@ -102,61 +108,10 @@ const HomePage = () => {
       />
 
       <ScrollView>
-        <Text style={{ fontSize: 20, marginTop: 10 }}>Breakfast Menu</Text>
-        <Picker
-          selectedValue={selectedBreakfastCategory}
-          onValueChange={(itemValue, itemIndex) => setSelectedBreakfastCategory(itemValue)}
-        >
-          <Picker.Item label="Select a breakfast item" value={null} />
-          {breakfastCategories.map((category, index) => (
-            <Picker.Item label={category} value={category} key={index} />
-          ))}
-        </Picker>
-        <Text style={{ fontSize: 20, marginTop: 10 }}>Snacks Menu</Text>
-        <Picker
-          selectedValue={selectedSnacksCategory}
-          onValueChange={(itemValue, itemIndex) => setSelectedSnacksCategory(itemValue)}
-        >
-          <Picker.Item label="Select a snacks item" value={null} />
-          {snacksCategories.map((category, index) => (
-            <Picker.Item label={category} value={category} key={index} />
-          ))}
-        </Picker>
-        <Text style={{ fontSize: 20, marginTop: 10 }}>Lunch Menu</Text>
-        <Picker
-          selectedValue={selectedLunchCategory}
-          onValueChange={(itemValue, itemIndex) => setSelectedLunchCategory(itemValue)}
-        >
-          <Picker.Item label="Select a lunch item" value={null} />
-          {lunchCategories.map((category, index) => (
-            <Picker.Item label={category} value={category} key={index} />
-          ))}
-        </Picker>
-        <Text style={{ fontSize: 20, marginTop: 10 }}>Snacks2 Menu</Text>
-        <Picker
-          selectedValue={selectedSnacks2Category}
-          onValueChange={(itemValue, itemIndex) => setSelectedSnacks2Category(itemValue)}
-        >
-          <Picker.Item label="Select a Snacks2 item" value={null} />
-          {snacks2Categories.map((category, index) => (
-            <Picker.Item label={category} value={category} key={index} />
-          ))}
-        </Picker>
-        <Text style={{ fontSize: 20, marginTop: 10 }}>Dinner Menu</Text>
-        <Picker
-          selectedValue={selectedDinnerCategory}
-          onValueChange={(itemValue, itemIndex) => setSelectedDinnerCategory(itemValue)}
-        >
-          <Picker.Item label="Select a Dinner item" value={null} />
-          {dinnerCategories.map((category, index) => (
-            <Picker.Item label={category} value={category} key={index} />
-          ))}
-        </Picker>
-        <TouchableOpacity onPress={navigateToMenuSelection} style={{ alignItems: 'center', margin: 20 }}>
-          <Text style={{ fontSize: 18, color: 'blue' }}>Go to Menu Selection</Text>
-        </TouchableOpacity>
+        {/* Your existing code for rendering pickers goes here */}
       </ScrollView>
 
+      {/* Dagens Menu Overlay */}
       {isDagensMenuVisible && (
         <Overlay
           isVisible={isDagensMenuVisible}
@@ -187,8 +142,7 @@ const HomePage = () => {
                 <TouchableOpacity key={index} onPress={() => navigation.navigate('MorningSnackPage')}>
                   <Text style={{ fontSize: 18, color: 'blue' }}>{item}</Text>
                 </TouchableOpacity>
-              ))
-            }
+              ))}
           </View>
         </Overlay>
       )}

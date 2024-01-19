@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Modal, TouchableWithoutFeedback, ImageBackground, CheckBox, TouchableOpacity, ScrollView } from 'react-native';
-import { Header, Icon, Overlay } from 'react-native-elements';
+import { Header, Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import CustomHeader from './CustomHeader';
 
@@ -45,18 +45,16 @@ const FirstPage = ({ isVisible, onClose }) => {
     setSelectedItems(updatedSelectedItems);
   };
 
-  //const navigateToNextPage = () => {
-    //navigation.navigate('NextPage');
-  //};
-   
   const dateAndDay = getCurrentDateAndDay();
-  
+
   const navigateToPreviousPage = () => {
-    navigation.navigate('Welcome');
+    // Implement logic to navigate to the previous page
+    // Example: navigation.navigate('PreviousPage');
   };
 
   const navigateToNextPage = () => {
-    navigation.navigate('BreakfastPage');
+    // Implement logic to navigate to the next page
+    // Example: navigation.navigate('NextPage');
   };
 
   const navigateToMorningSnackPage = () => {
@@ -64,20 +62,16 @@ const FirstPage = ({ isVisible, onClose }) => {
   };
 
   const navigateToItemPage = (item) => {
-    
-      console.log('Navigating to:', item);
-      // ... rest of the code
-    
-    
-    // Implement navigation to the specific page for the selected item
+    console.log('Navigating to:', item);
+    // ... rest of the code
     switch (item) {
       case 'Breakfast':
         navigation.navigate('BreakfastPage');
         break;
-        case 'HomePage':
+      case 'HomePage':
         navigation.navigate('HomePage');
         break;
-        case 'MorningSnacks':
+      case 'Morning Snacks':
         navigation.navigate('MorningSnacksPage');
         break;
       // Add cases for other items
@@ -89,77 +83,75 @@ const FirstPage = ({ isVisible, onClose }) => {
 
   return (
     <View style={{ flex: 1 }}>
-    <Header
-      leftComponent={
-        <TouchableOpacity onPress={navigateToPreviousPage}>
-          <Icon name="arrow-back" color="white" />
-        </TouchableOpacity>
-      }
-      rightComponent={
-        <TouchableOpacity onPress={navigateToNextPage}>
-          <Icon name="arrow-forward" color="white" />
-        </TouchableOpacity>
-      }
-      centerComponent={<CustomHeader dateAndDay={getCurrentDateAndDay()} />}
-    />
-      
-    <Modal visible={isVisible} transparent animationType="slide">
-      <TouchableWithoutFeedback onPress={onClose}>
-        <View style={styles.overlay}>
-          <ImageBackground source={require("../assets/hero2.jpg")} style={styles.backgroundImage}>
-            <ScrollView>
-              <View style={styles.container}>
-                <Text style={styles.title}>Which Meals Do You Usually Have?</Text>
-                <Text style={styles.subTitle}>(Mark the options that you most frequently choose)</Text>
+      <Header
+        leftComponent={
+          <TouchableOpacity onPress={navigateToPreviousPage}>
+            <Icon name="arrow-back" color="white" />
+          </TouchableOpacity>
+        }
+        rightComponent={
+          <TouchableOpacity onPress={navigateToNextPage}>
+            <Icon name="arrow-forward" color="white" />
+          </TouchableOpacity>
+        }
+        centerComponent={<CustomHeader dateAndDay={dateAndDay} />}
+      />
 
-                {mealsList.map((meal, mealIndex) => (
-                  <View key={mealIndex} style={styles.snackItem}>
-                    <CheckBox
-                      value={selectedItems[selectedDay]?.includes(meal) || false}
-                      onValueChange={() => toggleItemSelection(meal)}
-                    />
-                    <Text style={styles.snackText}>{meal}</Text>
-                  </View>
-                ))}
+      <Modal visible={isVisible} transparent animationType="slide">
+        <TouchableWithoutFeedback onPress={onClose}>
+          <View style={styles.overlay}>
+            <ImageBackground source={require("../assets/hero2.jpg")} style={styles.backgroundImage}>
+              <ScrollView>
+                <View style={styles.container}>
+                  <Text style={styles.title}>Which Meals Do You Usually Have?</Text>
+                  <Text style={styles.subTitle}>(Mark the options that you most frequently choose)</Text>
 
-                <Text style={styles.daysTitle}>Days</Text>
+                  {mealsList.map((meal, mealIndex) => (
+                    <View key={mealIndex} style={styles.snackItem}>
+                      <CheckBox
+                        value={selectedItems[selectedDay]?.includes(meal) || false}
+                        onValueChange={() => toggleItemSelection(meal)}
+                      />
+                      <Text style={styles.snackText}>{meal}</Text>
+                    </View>
+                  ))}
 
-                {daysOfWeek.map((day, dayIndex) => (
-                  <TouchableOpacity key={dayIndex} style={styles.dayButton} onPress={() => setSelectedDay(day)}>
-                    <Text style={styles.dayButtonText}>{day}</Text>
-                    {selectedItems[day] && (
-                      <View>
-                        <Text style={styles.selectedItemsText}>
-                          {selectedItems[day].join(', ')}
-                        </Text>
-                        {selectedItems[day].map((item, index) => (
-                          <TouchableOpacity
-                            key={index}
-                            style={styles.selectedItemLink}
-                            onPress={() => navigateToItemPage(item)}
-                          >
-                            <Text style={styles.selectedItemLinkText}>{item}</Text>
-                          </TouchableOpacity>
-                        ))}
-                      </View>
-                    )}
+                  <Text style={styles.daysTitle}>Days</Text>
+
+                  {daysOfWeek.map((day, dayIndex) => (
+                    <TouchableOpacity key={dayIndex} style={styles.dayButton} onPress={() => setSelectedDay(day)}>
+                      <Text style={styles.dayButtonText}>{day}</Text>
+                      {selectedItems[day] && (
+                        <View>
+                          <Text style={styles.selectedItemsText}>
+                            {selectedItems[day].join(', ')}
+                          </Text>
+                          {selectedItems[day].map((item, index) => (
+                            <TouchableOpacity
+                              key={index}
+                              style={styles.selectedItemLink}
+                              onPress={() => navigateToItemPage(item)}
+                            >
+                              <Text style={styles.selectedItemLinkText}>{item}</Text>
+                            </TouchableOpacity>
+                          ))}
+                        </View>
+                      )}
+                    </TouchableOpacity>
+                  ))}
+
+                  <TouchableOpacity style={styles.nextButton} onPress={navigateToNextPage}>
+                    <Text style={styles.buttonText}>Next</Text>
                   </TouchableOpacity>
-                ))}
-
-                <TouchableOpacity style={styles.nextButton} onPress={navigateToNextPage}>
-                  <Text style={styles.buttonText}>Next</Text>
-                </TouchableOpacity>
-              </View>
-            </ScrollView>
-          </ImageBackground>
-        </View>
-      </TouchableWithoutFeedback>
-    </Modal>
+                </View>
+              </ScrollView>
+            </ImageBackground>
+          </View>
+        </TouchableWithoutFeedback>
+      </Modal>
     </View>
   );
 };
-  
-
 
 const styles = StyleSheet.create({
   overlay: {
