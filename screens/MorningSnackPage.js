@@ -1,22 +1,78 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import { Header, Icon, Overlay } from 'react-native-elements';
 
-const MorningSnacksPage = () => {
+//import { useNavigation } from '@react-navigation/native';
+//import CustomHeader from './CustomHeader';
+
+const MorningSnackPage = () => {
+  const [isAlternativeVisible, setAlternativeVisible] = useState(false);
+
+  const openAlternative = () => setAlternativeVisible(true);
+  const closeAlternative = () => setAlternativeVisible(false);
+  //const navigation = useNavigation();
+  const morningsnackIngredients = [
+    'Fruit salad: ',
+    '1.  Strawberries - 1 cup(200g)',
+    '2.  Grapes - 1 cop(200g)',
+    
+  
+  ];
+  
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Morning Snacks</Text>
       
-      <View style={styles.content}>
-        <Text>1. Piece of Fruit (150grams)</Text>
+     
+      <Header
+        leftComponent={
+          <TouchableOpacity onPress={openAlternative}>
+            <Icon name="menu" color="white" />
+          </TouchableOpacity>
+        }
+        //centerComponent={<CustomHeader title="Breakfast" />}
+      />
+      <Text style={styles.title}>MorningSnack</Text>
+      <ScrollView>
+        <Image
+          source={require("../assets/morningsnack.jpg")}
+          style={{ width: 200, height: 200, alignSelf: 'center' }}
+        />
+
+        <View style={styles.contentContainer}>
+          <Text style={styles.title}>Fruit Salad</Text>
+          <View style={styles.ingredientsContainer}>
+            {morningsnackIngredients.map((ingredient, index) => (
+              <Text key={index}>{ingredient}</Text>
+            ))}
+          </View>
+        </View>
+
+        <TouchableOpacity onPress={openAlternative} style={styles.swipeButton}>
+          <Text style={styles.swipeButtonText}>Swipe to see other options</Text>
+        </TouchableOpacity>
+
         
-        {/* Nice Picture */}
-        <Image source={require('../assets/hero1.jpg')} style={styles.image} />
-        
-        {/* See Alternatives Button */}
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>See Alternatives</Text>
+      </ScrollView>
+
+      <View style={styles.bottomIconsContainer}>
+        <TouchableOpacity style={styles.iconButton}>
+          <Icon name="settings" size={30} color="black" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.iconButton}>
+          <Icon name="calendar" size={30} color="black" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.iconButton}>
+          <Icon name="apple" type="font-awesome-5" size={30} color="black" />
         </TouchableOpacity>
       </View>
+
+      <Overlay isVisible={isAlternativeVisible} onBackdropPress={closeAlternative}>
+        {/* Alternative content goes here */}
+        <Text>Alternative Option 1</Text>
+        <Text>Alternative Option 2</Text>
+        <Text>Alternative Option 3</Text>
+        {/* Add more alternative options */}
+      </Overlay> 
     </View>
   );
 };
@@ -24,33 +80,37 @@ const MorningSnacksPage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    backgroundColor: '#E0FFFF', // Light blue background color
+  },
+  contentContainer: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
+    padding: 10,
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 10,
   },
-  content: {
-    alignItems: 'center',
-  },
-  image: {
-    width: 300,
-    height: 200,
-    marginVertical: 20,
-    resizeMode: 'cover',
-  },
-  button: {
-    backgroundColor: 'blue',
+  ingredientsContainer: {
     padding: 10,
-    borderRadius: 8,
-    alignItems: 'center',
   },
-  buttonText: {
-    color: 'white',
+  swipeButton: {
+    alignItems: 'center',
+    marginVertical: 20,
+  },
+  swipeButtonText: {
     fontSize: 18,
+    color: 'blue',
+  },
+  bottomIconsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingVertical: 20,
+  },
+  iconButton: {
+    alignItems: 'center',
   },
 });
 
-export default MorningSnacksPage;
+export default MorningSnackPage;

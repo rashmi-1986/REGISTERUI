@@ -131,6 +131,14 @@ const Welcome = ({ navigation }) => {
                         }}
                     />
                     <Button
+                        title="Breakfast Page"
+                        onPress={() => navigation.navigate("BreakfastPage")}
+                        style={{
+                            marginTop: 22,
+                            width: "100%"
+                        }}
+                        />
+                    <Button
                         title="Morning Snacks Page"
                         onPress={() => navigation.navigate("MorningSnackPage")}
                         style={{
@@ -138,6 +146,39 @@ const Welcome = ({ navigation }) => {
                             width: "100%"
                         }}
                     />
+
+                    <Button
+                        title="AfternoonSnack Page"
+                        onPress={() => navigation.navigate("AfternoonSnackPage")}
+                        style={{
+                            marginTop: 22,
+                            width: "100%"
+                        }}
+                    />
+                    <Button
+                        title="EveningSnack Page"
+                        onPress={() => navigation.navigate("EveningSnackPage")}
+                        style={{
+                            marginTop: 22,
+                            width: "100%"
+                        }}
+                    />
+                    <Button
+                    title="Lunch Page"
+                    onPress={() => navigation.navigate("LunchPage")}
+                    style={{
+                        marginTop: 22,
+                        width: "100%"
+                    }}
+                />
+                <Button
+                title="Dinner Page"
+                onPress={() => navigation.navigate("DinnerPage")}
+                style={{
+                    marginTop: 22,
+                    width: "100%"
+                }}
+            />
 
                     <View style={{
                         flexDirection: "row",

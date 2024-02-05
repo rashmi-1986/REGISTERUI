@@ -1,60 +1,116 @@
-import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { Header, Icon } from 'react-native-elements';
-import CustomHeader from './CustomHeader';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import { Header, Icon, Overlay } from 'react-native-elements';
 
-function getCurrentDateAndDay() {
-  const currentDate = new Date();
-  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-  return currentDate.toLocaleDateString(undefined, options);
-}
+//import { useNavigation } from '@react-navigation/native';
+//import CustomHeader from './CustomHeader';
 
 const DinnerPage = () => {
-  const navigation = useNavigation();
-  const dateAndDay = getCurrentDateAndDay();
+  const [isAlternativeVisible, setAlternativeVisible] = useState(false);
 
-  const navigateToPreviousPage = () => {
-    // Replace 'Welcome' with the appropriate screen to navigate back
-    navigation.navigate('Welcome');
-  };
-
-  const navigateToNextPage = () => {
-    // Replace 'NextPage' with the appropriate screen to navigate forward
-    navigation.navigate('NextPage');
-  };
-
-  const navigateToHomePage = () => {
-    // Replace 'HomePage' with the appropriate screen to navigate to the home page
-    navigation.navigate('HomePage');
-  };
-
+  const openAlternative = () => setAlternativeVisible(true);
+  const closeAlternative = () => setAlternativeVisible(false);
+  //const navigation = useNavigation();
+  const dinnerIngredients = [
+    'Buckwheat with olives and artichokes: ',
+    '1.  A bowl of any legumes (see general information)(200g)',
+    '2.  A piece of fruit (two if small)',
+    '3.  Daily amount of extra virgin olive oil (excluding recipes)- 3 spoon',
+    
+  ];
+  
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.container}>
+      
+     
       <Header
         leftComponent={
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <TouchableOpacity onPress={navigateToHomePage}>
-              <Icon name="menu" color="white" />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={navigateToPreviousPage}>
-              <Icon name="arrow-back" color="white" />
-            </TouchableOpacity>
-          </View>
-        }
-        rightComponent={
-          <TouchableOpacity onPress={navigateToNextPage}>
-            <Icon name="arrow-forward" color="white" />
+          <TouchableOpacity onPress={openAlternative}>
+            <Icon name="menu" color="white" />
           </TouchableOpacity>
         }
-        centerComponent={<CustomHeader dateAndDay={dateAndDay} />}
+        //centerComponent={<CustomHeader title="Breakfast" />}
       />
-      {/* Your DinnerPage content goes here */}
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Dinner Page Content</Text>
+      <Text style={styles.title}>Dinner</Text>
+      <ScrollView>
+        <Image
+          source={require("../assets/dinner.jpg")}
+          style={{ width: 200, height: 200, alignSelf: 'center' }}
+        />
+
+        <View style={styles.contentContainer}>
+          <Text style={styles.title}>Buckwheat with olives and artichokes</Text>
+          <View style={styles.ingredientsContainer}>
+            {dinnerIngredients.map((ingredient, index) => (
+              <Text key={index}>{ingredient}</Text>
+            ))}
+          </View>
+        </View>
+
+        <TouchableOpacity onPress={openAlternative} style={styles.swipeButton}>
+          <Text style={styles.swipeButtonText}>Swipe to see other options</Text>
+        </TouchableOpacity>
+
+        
+      </ScrollView>
+
+      <View style={styles.bottomIconsContainer}>
+        <TouchableOpacity style={styles.iconButton}>
+          <Icon name="settings" size={30} color="black" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.iconButton}>
+          <Icon name="calendar" size={30} color="black" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.iconButton}>
+          <Icon name="apple" type="font-awesome-5" size={30} color="black" />
+        </TouchableOpacity>
       </View>
+
+      <Overlay isVisible={isAlternativeVisible} onBackdropPress={closeAlternative}>
+        {/* Alternative content goes here */}
+        <Text>Alternative Option 1</Text>
+        <Text>Alternative Option 2</Text>
+        <Text>Alternative Option 3</Text>
+        {/* Add more alternative options */}
+      </Overlay> 
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#E0FFFF', // Light blue background color
+  },
+  contentContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+  },
+  title: {
+    fontSize: 24,
+    marginBottom: 10,
+  },
+  ingredientsContainer: {
+    padding: 10,
+  },
+  swipeButton: {
+    alignItems: 'center',
+    marginVertical: 20,
+  },
+  swipeButtonText: {
+    fontSize: 18,
+    color: 'blue',
+  },
+  bottomIconsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingVertical: 20,
+  },
+  iconButton: {
+    alignItems: 'center',
+  },
+});
 
 export default DinnerPage;

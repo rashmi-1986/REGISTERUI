@@ -109,7 +109,7 @@ const HomePage = () => {
 
       <ScrollView>
         {/* Your existing code for rendering pickers goes here */}
-      </ScrollView>
+      //</ScrollView> 
 
       {/* Dagens Menu Overlay */}
       {isDagensMenuVisible && (
@@ -146,7 +146,7 @@ const HomePage = () => {
           </View>
         </Overlay>
       )}
-    </View>
+   </View>
   );
 };
 

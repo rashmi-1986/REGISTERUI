@@ -1,11 +1,14 @@
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { Login, Signup, Welcome, HomePage, BreakfastPage, TermsAndConditions, FirstPage, MorningSnackPage, LunchPage, AfternoonSnackPage, EveningSnackPage, DinnerPage } from "./screens";
+import Toast from 'react-native-toast-message';
+import { View, StatusBar } from 'react-native';
+
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -103,7 +106,17 @@ export default function App() {
           }}
           />
           
-      </Stack.Navigator>
+          </Stack.Navigator>
+          
+          <View style={{ flex: 1 }}>
+        <StatusBar barStyle="dark-content" />
+        {/* Your MenuPage Component */}
+        {/* You can include the MenuPage component here or use it within the navigation */}
+        {/* <MenuPage /> */}
+        <Toast />
+      </View>
     </NavigationContainer>
   );
-}
+};
+
+

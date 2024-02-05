@@ -5,7 +5,7 @@ const CustomHeader = ({ dateAndDay }) => {
   return (
     <View style={styles.header}>
       <Text style={styles.dateAndDay}>{dateAndDay}</Text>
-      <Text style={styles.title}>Daily Food Menu</Text>
+    
     </View>
   );
 };
