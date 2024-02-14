@@ -1,59 +1,108 @@
-// AfternoonSnacksPage.js
-import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import { Icon, Overlay } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 
-const AfternoonSnacksPage = () => {
+const AfternoonSnackPage = () => {
+  const [isAlternativeVisible, setAlternativeVisible] = useState(false);
+  const [currentDate, setCurrentDate] = useState(new Date());
   const navigation = useNavigation();
 
-  const handleSeeAlternatives = () => {
-    // Handle the action when the user clicks "See Alternatives"
-    // You can navigate to another page or show alternatives in a modal, etc.
-    // For now, let's just log a message.
-    console.log('See Alternatives clicked!');
+  const openAlternative = () => setAlternativeVisible(true);
+  const closeAlternative = () => setAlternativeVisible(false);
+  const eveningsnackIngredients = [
+    'Nuts: ',
+    '1.  Walnuts(25g)',
+    '2.  Almonds(25g)',
+    '3.  Cashews(25g)',
+  ];
+
+  const handleNavigation = (meal) => {
+    navigation.navigate(meal); // Navigate to the respective screen
   };
 
-  const handlePreviousPage = () => {
-    // Handle the action when the user clicks "Previous"
-    // You can navigate to the previous page or perform any other action.
-    navigation.goBack(); // This assumes you're using React Navigation.
-  };
-
-  const handleNextPage = () => {
-    // Handle the action when the user clicks "Next"
-    // You can navigate to the next page or perform any other action.
-    // For now, let's just log a message.
-    console.log('Next clicked!');
+  const handleDateNavigation = (direction) => {
+    const newDate = new Date(currentDate);
+    if (direction === 'yesterday') {
+      newDate.setDate(currentDate.getDate() - 1);
+    } else if (direction === 'tomorrow') {
+      newDate.setDate(currentDate.getDate() + 1);
+    }
+    setCurrentDate(newDate);
+    // Here you can add logic to navigate to the corresponding date
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Afternoon Snacks</Text>
+      <View style={styles.dateContainer}>
+        <TouchableOpacity onPress={() => handleDateNavigation('yesterday')}>
+          <Text style={styles.navigationText}>Yesterday</Text>
+        </TouchableOpacity>
+        <Text style={styles.dateText}>{currentDate.toDateString()}</Text>
+        <TouchableOpacity onPress={() => handleDateNavigation('tomorrow')}>
+          <Text style={styles.navigationText}>Tomorrow</Text>
+        </TouchableOpacity>
+      </View>
 
-      {/* Options */}
-      <View style={styles.optionContainer}>
-        <Text style={styles.optionTitle}>1. A piece of Fruits (150 grams)</Text>
-        {/* Placeholder image, replace with actual image */}
-        <Image source={require('../assets/hero2.jpg')}
-          style={styles.optionImage}
+      <View style={styles.topContainer}>
+        <TouchableOpacity onPress={() => handleNavigation('BreakfastPage')}>
+          <Text style={styles.mealText}>Breakfast</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleNavigation('MorningSnackPage')}>
+          <Text style={styles.mealText}>Morning Snack</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleNavigation('LunchPage')}>
+          <Text style={styles.mealText}>Lunch</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleNavigation('AfternoonSnackPage')}>
+          <Text style={[styles.mealText, styles.highlighted]}>Afternoon Snack</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleNavigation('DinnerPage')}>
+          <Text style={styles.mealText}>Dinner</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleNavigation('EveningSnackPage')}>
+          <Text style={styles.mealText}>Evening Snack</Text>
+        </TouchableOpacity>
+      </View>
+
+      <Text style={styles.title}>Evening Snack</Text>
+      <ScrollView>
+        <Image
+          source={require("../assets/nuts.jpg")}
+          style={{ width: 200, height: 200, alignSelf: 'center' }}
         />
+
+        <View style={styles.contentContainer}>
+          <Text style={styles.title}>Nuts</Text>
+          <View style={styles.ingredientsContainer}>
+            {eveningsnackIngredients.map((ingredient, index) => (
+              <Text key={index}>{ingredient}</Text>
+            ))}
+          </View>
+        </View>
+
+        <TouchableOpacity onPress={openAlternative} style={styles.swipeButton}>
+          <Text style={styles.swipeButtonText}>Swipe to see other options</Text>
+        </TouchableOpacity>
+      </ScrollView>
+
+      <View style={styles.bottomIconsContainer}>
+        <TouchableOpacity style={styles.iconButton}>
+          <Icon name="settings" size={30} color="black" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.iconButton}>
+          <Icon name="calendar" size={30} color="black" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.iconButton}>
+          <Icon name="apple" type="font-awesome-5" size={30} color="black" />
+        </TouchableOpacity>
       </View>
 
-      {/* "See Alternatives" button */}
-      <TouchableOpacity style={styles.button} onPress={handleSeeAlternatives}>
-        <Text style={styles.buttonText}>See Alternatives</Text>
-      </TouchableOpacity>
-
-      {/* Navigation buttons */}
-      <View style={styles.navigationButtons}>
-        <TouchableOpacity style={styles.button} onPress={handlePreviousPage}>
-          <Text style={styles.buttonText}>Previous</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.button} onPress={handleNextPage}>
-          <Text style={styles.buttonText}>Next</Text>
-        </TouchableOpacity>
-      </View>
+      <Overlay isVisible={isAlternativeVisible} onBackdropPress={closeAlternative}>
+        <Text>Alternative Option 1</Text>
+        <Text>Alternative Option 2</Text>
+        <Text>Alternative Option 3</Text>
+      </Overlay> 
     </View>
   );
 };
@@ -61,45 +110,68 @@ const AfternoonSnacksPage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    backgroundColor: '#E0FFFF', // Light blue background color
+  },
+  dateContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    justifyContent: 'center',
+    paddingHorizontal: 20,
+    paddingTop: 20,
+  },
+  dateText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  navigationText: {
+    fontSize: 16,
+    color: 'blue',
+  },
+  topContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingTop: 20,
+  },
+  mealText: {
+    fontSize: 16,
+    color: 'black',
+  },
+  highlighted: {
+    textDecorationLine: 'underline',
+    fontWeight: 'bold',
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  optionContainer: {
-    marginBottom: 20,
-  },
-  optionTitle: {
-    fontSize: 18,
     marginBottom: 10,
+    alignSelf: 'center', // Align title to center
   },
-  optionImage: {
-    width: 200,
-    height: 200,
-    resizeMode: 'cover',
-    borderRadius: 10,
-  },
-  button: {
-    marginTop: 10,
-    padding: 10,
-    backgroundColor: 'blue',
-    borderRadius: 8,
+  contentContainer: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
-    width: 150,
+    padding: 10,
   },
-  buttonText: {
-    color: 'white',
-    fontSize: 16,
+  ingredientsContainer: {
+    padding: 10,
   },
-  navigationButtons: {
+  swipeButton: {
+    alignItems: 'center',
+    marginVertical: 20,
+  },
+  swipeButtonText: {
+    fontSize: 18,
+    color: 'blue',
+  },
+  bottomIconsContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
+    justifyContent: 'space-around',
+    paddingVertical: 20,
+  },
+  iconButton: {
+    alignItems: 'center',
   },
 });
 
-export default AfternoonSnacksPage
+export default AfternoonSnackPage;

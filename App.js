@@ -1,9 +1,10 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { Login, Signup, Welcome, HomePage, BreakfastPage, TermsAndConditions, FirstPage, MorningSnackPage, LunchPage, AfternoonSnackPage, EveningSnackPage, DinnerPage } from "./screens";
+import { Login, Signup, Welcome, HomePage, BreakfastPage, TermsAndConditions, FirstPage, MorningSnackPage, LunchPage, AfternoonSnackPage, EveningSnackPage, DinnerPage, Feedback, MealSelectionPage } from "./screens";
 import Toast from 'react-native-toast-message';
 import { View, StatusBar } from 'react-native';
+
 
 
 const Stack = createNativeStackNavigator();
@@ -101,6 +102,22 @@ export default function App() {
         <Stack.Screen
           name="DinnerPage"
           component={DinnerPage}
+          options={{
+            headerShown: false
+          }}
+          />
+
+        <Stack.Screen
+          name="Feedback"
+          component={Feedback}
+          options={{
+            headerShown: false
+          }}
+          />
+
+        <Stack.Screen
+          name="MealSelectionPage"
+          component={MealSelectionPage}
           options={{
             headerShown: false
           }}

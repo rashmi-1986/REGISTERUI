@@ -4,6 +4,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import COLORS from '../constants/colors';
 import Button from '../components/Button';
 
+
 const Welcome = ({ navigation }) => {
 
     return (
@@ -16,7 +17,7 @@ const Welcome = ({ navigation }) => {
             <View style={{ flex: 1 }}>
                 <View>
                     <Image
-                        source={require("../assets/hero1.jpg")}
+                        source={require("../assets/nuts.jpg")}
                         style={{
                             height: 100,
                             width: 100,
@@ -49,7 +50,7 @@ const Welcome = ({ navigation }) => {
                     />
 
                     <Image
-                        source={require("../assets/hero3.jpg")}
+                        source={require("../assets/hero1.jpg")}
                         style={{
                             width: 100,
                             height: 100,
@@ -84,7 +85,7 @@ const Welcome = ({ navigation }) => {
                 </View>
 
                 {/* content  */}
-
+                
                 <View style={{
                     paddingHorizontal: 22,
                     position: "absolute",
@@ -122,6 +123,16 @@ const Welcome = ({ navigation }) => {
                             width: "100%"
                         }}
                     />
+
+                   <Button
+                        title="MealSelectionPage"
+                        onPress={() => navigation.navigate("MealSelectionPage")}
+                        style={{
+                            marginTop: 22,
+                            width: "100%"
+                        }}
+                    />
+
                     <Button
                         title="Home Page"
                         onPress={() => navigation.navigate("HomePage")}
@@ -130,50 +141,10 @@ const Welcome = ({ navigation }) => {
                             width: "100%"
                         }}
                     />
-                    <Button
-                        title="Breakfast Page"
-                        onPress={() => navigation.navigate("BreakfastPage")}
-                        style={{
-                            marginTop: 22,
-                            width: "100%"
-                        }}
-                        />
-                    <Button
-                        title="Morning Snacks Page"
-                        onPress={() => navigation.navigate("MorningSnackPage")}
-                        style={{
-                            marginTop: 22,
-                            width: "100%"
-                        }}
-                    />
-
-                    <Button
-                        title="AfternoonSnack Page"
-                        onPress={() => navigation.navigate("AfternoonSnackPage")}
-                        style={{
-                            marginTop: 22,
-                            width: "100%"
-                        }}
-                    />
-                    <Button
-                        title="EveningSnack Page"
-                        onPress={() => navigation.navigate("EveningSnackPage")}
-                        style={{
-                            marginTop: 22,
-                            width: "100%"
-                        }}
-                    />
-                    <Button
-                    title="Lunch Page"
-                    onPress={() => navigation.navigate("LunchPage")}
-                    style={{
-                        marginTop: 22,
-                        width: "100%"
-                    }}
-                />
+                    
                 <Button
-                title="Dinner Page"
-                onPress={() => navigation.navigate("DinnerPage")}
+                title="Feedback"
+                onPress={() => navigation.navigate("Feedback")}
                 style={{
                     marginTop: 22,
                     width: "100%"
