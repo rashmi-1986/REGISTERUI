@@ -51,6 +51,16 @@ const Welcome = ({ navigation }) => {
                     onPress={() => navigation.navigate("MealSelectionPage")}
                     style={styles.button}
                 />
+                <Button
+                    title="Selected Meals Page"
+                    onPress={() => navigation.navigate("SelectedMealsPage")}
+                    style={styles.button}
+                />
+                <Button
+                    title="HomePage"
+                    onPress={() => navigation.navigate("HomePage")}
+                    style={styles.button}
+                />
                 
                 
                 <View style={styles.loginContainer}>
