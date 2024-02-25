@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
-import { Header, Icon, Overlay } from 'react-native-elements';
+import { Icon, Overlay } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
+
+
 
 
 const MorningSnackPage = () => {
@@ -23,14 +25,26 @@ const MorningSnackPage = () => {
     navigation.navigate(meal); // Navigate to the respective screen
   };
 
+  const handleDateNavigation = (direction) => {
+    const newDate = new Date(currentDate);
+    if (direction === 'yesterday') {
+      newDate.setDate(currentDate.getDate() - 1);
+    } else if (direction === 'tomorrow') {
+      newDate.setDate(currentDate.getDate() + 1);
+    }
+    setCurrentDate(newDate);
+    // Here you can add logic to navigate to the corresponding date
+  };
+
+
   return (
     <View style={styles.container}>
       <View style={styles.dateContainer}>
-        <TouchableOpacity onPress={() => handleNavigation('Yesterday')}>
+        <TouchableOpacity onPress={() => handleDateNavigation('yesterday')}>
           <Text style={styles.navigationText}>Yesterday</Text>
         </TouchableOpacity>
         <Text style={styles.dateText}>{currentDate.toDateString()}</Text>
-        <TouchableOpacity onPress={() => handleNavigation('Tomorrow')}>
+        <TouchableOpacity onPress={() => handleDateNavigation('tomorrow')}>
           <Text style={styles.navigationText}>Tomorrow</Text>
         </TouchableOpacity>
       </View>
@@ -75,7 +89,7 @@ const MorningSnackPage = () => {
         </View>
 
         <TouchableOpacity onPress={openAlternative} style={styles.swipeButton}>
-          <Text style={styles.swipeButtonText}>Swipe to see other options</Text>
+          <Text style={styles.swipeButtonText}>Click to see other options</Text>
         </TouchableOpacity>
       </ScrollView>
 

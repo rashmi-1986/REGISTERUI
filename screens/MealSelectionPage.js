@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const MealSelectionPage= ({ route }) => {
+const MealSelectionPage= () => {
   const navigation = useNavigation();
 
   const meals = [
@@ -42,7 +42,11 @@ const MealSelectionPage= ({ route }) => {
   };
 
   return (
-    <View style={styles.container}>
+    
+    
+    <ScrollView contentContainerStyle={styles.scrollViewContent}>
+
+    
       <Text style={styles.title}>Which meals do you usually have?</Text>
       <Text style={styles.subtitle}>Select the meals you have</Text>
 
@@ -51,8 +55,7 @@ const MealSelectionPage= ({ route }) => {
           key={index}
           style={[
             styles.mealButton,
-            { backgroundColor: selectedItemsByMeal[meal] ? 'blue' :
-'transparent' },
+            { backgroundColor: selectedItemsByMeal[meal] ? 'blue' :'transparent' },
           ]}
           onPress={() => handleMealButtonPress(meal)}
         >
@@ -63,7 +66,10 @@ const MealSelectionPage= ({ route }) => {
       <TouchableOpacity style={styles.nextButton} onPress={navigateToHomePage}>
         <Text style={styles.buttonText}>Next</Text>
       </TouchableOpacity>
-    </View>
+    
+    </ScrollView>
+        
+    
   );
 };
 
@@ -84,7 +90,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   mealButton: {
-    width: '80%',
+    width: '100%',
     height: 50,
     backgroundColor: 'transparent',
     borderColor: 'blue',
@@ -107,7 +113,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-    fontSize: 18,
+    fontSize: 20,
   },
 });
 

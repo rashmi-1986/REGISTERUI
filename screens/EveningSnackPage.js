@@ -82,7 +82,7 @@ const EveningSnackPage = () => {
         </View>
 
         <TouchableOpacity onPress={openAlternative} style={styles.swipeButton}>
-          <Text style={styles.swipeButtonText}>Swipe to see other options</Text>
+          <Text style={styles.swipeButtonText}>Click to see other options</Text>
         </TouchableOpacity>
       </ScrollView>
 

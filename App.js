@@ -9,8 +9,11 @@ import { View, StatusBar } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 
-export default function App() {
+const App = () => {
   return (
+      <View style={{ flex: 1 }}>
+          <StatusBar barStyle="dark-content" />
+
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName='Welcome'
@@ -124,16 +127,12 @@ export default function App() {
           />
           
           </Stack.Navigator>
-          
-          <View style={{ flex: 1 }}>
-        <StatusBar barStyle="dark-content" />
-        {/* Your MenuPage Component */}
-        {/* You can include the MenuPage component here or use it within the navigation */}
-        {/* <MenuPage /> */}
-        <Toast />
-      </View>
+     
     </NavigationContainer>
+    <Toast />
+    </View>
   );
 };
 
+export default App;
 

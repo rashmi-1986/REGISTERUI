@@ -1,28 +1,21 @@
 import React, { useState } from 'react';
-
-import { View, Text, Image, Pressable,TextInput, TouchableOpacity } from 'react-native';
-
+import { View, Text, Image, Pressable,TextInput, TouchableOpacity, ScrollView} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
 import COLORS from '../constants/colors';
-
 import Checkbox from 'expo-checkbox';
-
 import TermsAndConditions from './TermsAndConditions';
-
 import { Ionicons } from '@expo/vector-icons';
-
 import Button from '../components/Button';
-
 import axios from 'axios';
-
 import Toast from 'react-native-toast-message';
 
 
 
 const Signup = ({ navigation }) => {
-
   const [idNumber, setIdNumber] = useState('');
+  const [Fullname, setFullname] = useState('');
+  const [gender, setGender] = useState('');
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -38,15 +31,10 @@ const Signup = ({ navigation }) => {
   const showToast = (type, text1, text2) => {
 
     Toast.show({
-
       type: type,
-
       text1: text1,
-
       text2: text2,
-
       position: 'center',
-
     });
 
   };
@@ -75,14 +63,16 @@ const Signup = ({ navigation }) => {
 
     try {
       const userData = {
-        IDnumber: idNumber,
+        IDnumber:idNumber,
+        Fullname:Fullname, 
+        Gender: gender,
         username: email,
         password: password,
       };
       console.log('SignUp Payload:', userData);
 
       const response = await 
-      axios.post('http://localhost:3000/auth/register', userData);
+      axios.post('http://192.168.0.44:3000/auth/register', userData);
 
       console.log('User registration successful:', response.data);
 
@@ -98,10 +88,32 @@ const Signup = ({ navigation }) => {
       showToast('error', 'Registration Failed', 'There was an error during registration. Please try again.');
     }
   };
+   
+  const renderGenderButton = (value, label) => (
+    <TouchableOpacity
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: COLORS.primary,
+        borderRadius: 8,
+        padding: 10,
+        marginRight: 10,
+        backgroundColor: gender === value ? COLORS.primary : 'transparent',
+      }}
+      onPress={() => setGender(value)}
+    >
+      <Text style={{ color: gender === value ? COLORS.white :
+COLORS.primary }}>{label}</Text>
+    </TouchableOpacity>
+  );
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <View style={{ flex: 1, marginHorizontal: 22 }}>
+      <ScrollView>
+    <View style={{ flex: 1, marginHorizontal: 22 }}>
+      <Image source={require("../assets/registerimage.png")} style={{ width: '100%', height: 200, marginBottom: 20 }} />
+    
         <View style={{ marginVertical: 22 }}>
           <Text style={{ fontSize: 22, fontWeight: 'bold', marginVertical: 12, color: COLORS.black }}>
             Create Account
@@ -110,7 +122,6 @@ const Signup = ({ navigation }) => {
 
           <Text style={{ fontSize: 16, color: COLORS.black }}>Connect with your friend today!</Text>
         </View>
-
 
         <View style={{ marginBottom: 12 }}>
           <Text style={{ fontSize: 16, fontWeight: '400', marginVertical: 8 }}>IDnumber</Text>
@@ -129,7 +140,7 @@ const Signup = ({ navigation }) => {
             }}
           >
             <TextInput
-              placeholder="Enter your ID number"
+              placeholder="Enter your IDnumber"
               placeholderTextColor={COLORS.black}
               keyboardType="numeric"
               style={{
@@ -143,7 +154,7 @@ const Signup = ({ navigation }) => {
 
 
         <View style={{ marginBottom: 12 }}>
-          <Text style={{ fontSize: 16, fontWeight: '400', marginVertical: 8 }}>Username</Text>
+          <Text style={{ fontSize: 16, fontWeight: '400', marginVertical: 8 }}>Fullname</Text>
 
 
           <View
@@ -159,7 +170,48 @@ const Signup = ({ navigation }) => {
             }}
           >
             <TextInput
-              placeholder="Username"
+              placeholder="Enter your Full name"
+              placeholderTextColor={COLORS.black}
+            
+              style={{
+                width: '80%',
+              }}
+              value={Fullname}
+              onChangeText={(text) => setFullname(text)}
+            />
+          </View>
+        </View>
+
+        <View style={{ marginBottom: 12 }}>
+            <Text style={{ fontSize: 16, fontWeight: '400',
+marginVertical: 8 }}>Gender</Text>
+            <View style={{ flexDirection: 'row' }}>
+              {renderGenderButton('Male', 'Male')}
+              {renderGenderButton('Female', 'Female')}
+              {renderGenderButton('Others', 'Others')}
+            </View>
+          </View>
+
+
+
+        <View style={{ marginBottom: 12 }}>
+          <Text style={{ fontSize: 16, fontWeight: '400', marginVertical: 8 }}>Email-ID</Text>
+
+
+          <View
+            style={{
+              width: '100%',
+              height: 48,
+              borderColor: COLORS.black,
+              borderWidth: 1,
+              borderRadius: 8,
+              alignItems: 'center',
+              justifyContent: 'center',
+              paddingLeft: 22,
+            }}
+          >
+            <TextInput
+              placeholder="abc@mail.com"
               placeholderTextColor={COLORS.black}
               keyboardType="email-address"
               style={{
@@ -197,7 +249,7 @@ const Signup = ({ navigation }) => {
             }}
           >
             <TextInput
-              placeholder="Password"
+              placeholder="Enter your password"
               placeholderTextColor={COLORS.black}
               //secureTextEntry={true}
               secureTextEntry={!isPasswordShown}
@@ -272,6 +324,7 @@ const Signup = ({ navigation }) => {
           </Pressable>
           </View>
       </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

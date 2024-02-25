@@ -23,41 +23,55 @@ const DinnerPage = () => {
     navigation.navigate(meal); // Navigate to the respective screen
   };
 
+  const handleDateNavigation = (direction) => {
+    const newDate = new Date(currentDate);
+    if (direction === 'yesterday') {
+      newDate.setDate(currentDate.getDate() - 1);
+    } else if (direction === 'tomorrow') {
+      newDate.setDate(currentDate.getDate() + 1);
+    }
+    setCurrentDate(newDate);
+    // Here you can add logic to navigate to the corresponding date
+  };
+
+  
   return (
     <View style={styles.container}>
+      <ScrollView style={{ flex: 1 }}>
       <View style={styles.dateContainer}>
-        <TouchableOpacity onPress={() => handleNavigation('Yesterday')}>
+        <TouchableOpacity onPress={() => handleDateNavigation('yesterday')}>
           <Text style={styles.navigationText}>Yesterday</Text>
         </TouchableOpacity>
         <Text style={styles.dateText}>{currentDate.toDateString()}</Text>
-        <TouchableOpacity onPress={() => handleNavigation('Tomorrow')}>
+        <TouchableOpacity onPress={() => handleDateNavigation('tomorrow')}>
           <Text style={styles.navigationText}>Tomorrow</Text>
         </TouchableOpacity>
       </View>
 
-      <View style={styles.topContainer}>
-        <TouchableOpacity onPress={() => handleNavigation('BreakfastPage')}>
-          <Text style={styles.mealText}>Breakfast</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleNavigation('MorningSnackPage')}>
-          <Text style={styles.mealText}>Morning Snack</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleNavigation('LunchPage')}>
-          <Text style={styles.mealText}>Lunch</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleNavigation('AfternoonSnackPage')}>
-          <Text style={styles.mealText}>Afternoon Snack</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleNavigation('DinnerPage')}>
-          <Text style={[styles.mealText, styles.highlighted]}>Dinner</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleNavigation('EveningSnackPage')}>
-          <Text style={styles.mealText}>Evening Snack</Text>
-        </TouchableOpacity>
-      </View>
 
-      <Text style={styles.title}>Dinner</Text>
-      <ScrollView>
+        <View style={styles.topContainer}>
+        
+          <TouchableOpacity onPress={() => handleNavigation('BreakfastPage')}>
+            <Text style={styles.mealText}>Breakfast</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => handleNavigation('MorningSnackPage')}>
+            <Text style={styles.mealText}>Morning Snack</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => handleNavigation('LunchPage')}>
+            <Text style={styles.mealText}>Lunch</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => handleNavigation('AfternoonSnackPage')}>
+            <Text style={styles.mealText}>Afternoon Snack</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => handleNavigation('DinnerPage')}>
+            <Text style={[styles.mealText, styles.highlighted]}>Dinner</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => handleNavigation('EveningSnackPage')}>
+            <Text style={styles.mealText}>Evening Snack</Text>
+          </TouchableOpacity>
+        </View>
+
+        <Text style={styles.title}>Dinner</Text>
         <Image
           source={require("../assets/dinner.jpg")}
           style={{ width: 200, height: 200, alignSelf: 'center' }}
@@ -73,7 +87,7 @@ const DinnerPage = () => {
         </View>
 
         <TouchableOpacity onPress={openAlternative} style={styles.swipeButton}>
-          <Text style={styles.swipeButtonText}>Swipe to see other options</Text>
+          <Text style={styles.swipeButtonText}>Click to see other options</Text>
         </TouchableOpacity>
       </ScrollView>
 

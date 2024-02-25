@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Image, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import COLORS from '../constants/colors';
 import { Ionicons } from '@expo/vector-icons';
 import Button from '../components/Button';
 import axios from 'axios';
 import Toast from 'react-native-toast-message';
+
 
 const Login = ({ navigation }) => {
   const [isPasswordShown, setIsPasswordShown] = useState(false);
@@ -31,7 +32,7 @@ const Login = ({ navigation }) => {
       };
 
       const response = await
-       axios.post('http://localhost:3000/auth/login', userData);
+       axios.post('http://192.168.0.44:3000/auth/login', userData);
 
       console.log('Login successful:', response.data);
 
@@ -39,7 +40,7 @@ const Login = ({ navigation }) => {
       showToast('success', 'Login Successful', 'You have successfully logged in.');
 
       // Navigate to the home page or any other action needed
-      navigation.navigate('HomePage');
+      navigation.navigate('MealSelectionPage');
     } catch (error) {
       console.error('Error logging in:', error);
 
@@ -50,12 +51,14 @@ const Login = ({ navigation }) => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
+    
       <View style={{ flex: 1, marginHorizontal: 22 }}>
+        <ScrollView>
       <Image source={require("../assets/Login.jpg")} style={{ width: '100%', height: 500, marginBottom: 20 }} />
 
         <View style={{ marginBottom: 12 }}>
           <Text style={{ fontSize: 16, fontWeight: '400',
-                   marginVertical: 8 }}>Username</Text>
+                   marginVertical: 8 }}>Email-ID</Text>
 
           <View
             style={{
@@ -126,8 +129,9 @@ marginVertical: 8 }}>Password</Text>
         </View>
 
         <Button title="Login" filled onPress={handleLogin} />
-
+        </ScrollView>
       </View>
+      
     </SafeAreaView>
   );
 };
