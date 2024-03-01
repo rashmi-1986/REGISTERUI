@@ -79,6 +79,7 @@ const Signup = ({ navigation }) => {
       // Show success message
       showToast('success', 'Registration Successful', 'You have successfully registered. Now you can log in.'); 
       navigation.navigate('Login'); 
+      navigation.navigate('HomePage', { gender: gender });
     } 
     catch (error) {
       console.error('Error signing up:', error);
@@ -109,10 +110,12 @@ COLORS.primary }}>{label}</Text>
   );
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <ScrollView>
-    <View style={{ flex: 1, marginHorizontal: 22 }}>
-      <Image source={require("../assets/registerimage.png")} style={{ width: '100%', height: 200, marginBottom: 20 }} />
+   <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
+   <ScrollView> 
+   <View style={{ flex: 1, marginHorizontal: 25 }}>
+   <Image source={require("../assets/SignupPageimage.png")} style={{ flex: 1, width: '100%', height: undefined, aspectRatio: 2.6, marginBottom: 1 }} />
+ 
+ 
     
         <View style={{ marginVertical: 22 }}>
           <Text style={{ fontSize: 22, fontWeight: 'bold', marginVertical: 12, color: COLORS.black }}>
@@ -122,7 +125,7 @@ COLORS.primary }}>{label}</Text>
 
           <Text style={{ fontSize: 16, color: COLORS.black }}>Connect with your friend today!</Text>
         </View>
-
+        
         <View style={{ marginBottom: 12 }}>
           <Text style={{ fontSize: 16, fontWeight: '400', marginVertical: 8 }}>IDnumber</Text>
 
@@ -183,8 +186,7 @@ COLORS.primary }}>{label}</Text>
         </View>
 
         <View style={{ marginBottom: 12 }}>
-            <Text style={{ fontSize: 16, fontWeight: '400',
-marginVertical: 8 }}>Gender</Text>
+            <Text style={{ fontSize: 16, fontWeight: '400', marginVertical: 8 }}>Gender</Text>
             <View style={{ flexDirection: 'row' }}>
               {renderGenderButton('Male', 'Male')}
               {renderGenderButton('Female', 'Female')}
@@ -306,8 +308,7 @@ marginVertical: 8 }}>Gender</Text>
         </Pressable>
 
         <Button title="Signup" filled onPress={handleSignUp} />
-{/* ... (unchanged code) */}
-      
+     
       <View style={{ flexDirection: 'row', justifyContent: 'center', marginVertical: 22 }}>
           <Text style={{ fontSize: 16, color: COLORS.black }}>Already have an account</Text>
           <Pressable onPress={() => navigation.navigate('Login')}>
@@ -324,8 +325,8 @@ marginVertical: 8 }}>Gender</Text>
           </Pressable>
           </View>
       </View>
-      </ScrollView>
-    </SafeAreaView>
+      </ScrollView> 
+  </SafeAreaView>
   );
 };
 

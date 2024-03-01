@@ -1,19 +1,13 @@
 // TermsAndConditions.js
 
 import React from 'react';
-
 import { ScrollView, Text, View, TouchableOpacity } from 'react-native';
-
 import { useNavigation } from '@react-navigation/native';
-
 import COLORS from '../constants/colors';
 
 
 const TermsAndConditions = () => {
-
   const navigation = useNavigation();
-
-
   const handleAgree = () => {
 
     // Handle the logic when the user agrees
@@ -94,67 +88,45 @@ allergens, advising users to check ingredients carefully.
       <Text style={{ fontSize: 18, marginBottom: 10, color: COLORS.black }}>
 
       5. User Responsibility:
-
       </Text>
 
       <Text style={{ marginBottom: 10, color: COLORS.black }}>
-
       Include a disclaimer in the app's terms of use or settings
 section, reminding users of their responsibility for their health
 decisions.
-
       </Text>
 
       <Text style={{ fontSize: 18, marginBottom: 10, color: COLORS.black }}>
-
       6. Use of Information:
-
       </Text>
 
       <Text style={{ marginBottom: 10, color: COLORS.black }}>
 
       Display a pop-up message upon first use of the app, informing
 users that they use the information at their own risk.
-
       </Text>
 
       <Text style={{ fontSize: 18, marginBottom: 10, color: COLORS.black }}>
-
       7. Copyright:
-
       </Text>
 
       <Text style={{ marginBottom: 10, color: COLORS.black }}>
-
       Add copyright information in the app's footer or settings
 section, stating that all content belongs to your company and
 reproduction without permission is prohibited.
-
       </Text>
 
-
-
       <View style={{ alignItems: 'center', marginBottom: 20 }}>
-
         <TouchableOpacity onPress={handleAgree} style={{
 backgroundColor: COLORS.primary, padding: 10, borderRadius: 8, width:
 120, alignItems: 'center' }}>
-
           <Text style={{ color: COLORS.white }}>Agree</Text>
-
         </TouchableOpacity>
-
         <TouchableOpacity onPress={() => navigation.goBack()} style={{
 marginTop: 10 }}>
-
           <Text style={{ color: COLORS.primary }}>Disagree</Text>
-
         </TouchableOpacity>
-
       </View>
-
-
-
     </ScrollView>
 
   );

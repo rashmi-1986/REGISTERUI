@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, Image, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const HomePage = () => {
@@ -19,6 +19,25 @@ const HomePage = () => {
   const navigateToFeedback = () => {
     navigation.navigate('Feedback');
   };
+
+  
+ /* const route = useRoute();
+  const { gender } = route.params; // Retrieve the gender prop passed from Signup
+
+  // Your existing code
+  
+  // Function to navigate to the appropriate diet plan page based on gender
+  const navigateToDietPlanPage = () => {
+    if (gender === 'male') {
+      navigation.navigate('Mendietplan');
+    } else if (gender === 'female') {
+      navigation.navigate('Womendietplan');
+    } else {
+      // Handle other genders if needed
+      console.log('Invalid gender specified');
+    }
+  };*/
+
   
   const getDayWithOffset = (offset) => {
     const currentDate = new Date();
@@ -101,7 +120,7 @@ const HomePage = () => {
       name: 'Evening Snack',
       description: 'Meat Fillet with green Pepper',
       options: 'Read more or see other options ->',
-      image: require('../assets/hero1.jpg'),
+      image: require('../assets/nuts.jpg'),
     },
   ];
 
@@ -195,11 +214,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 10,
+    paddingVertical: 20,
     backgroundColor: '#f0f0f0',
   },
   headerText: {
-    fontSize: 20,
+    fontSize: 25,
     textAlign: 'center',
     flex: 1,
   },
@@ -217,11 +236,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   dayText: {
-    fontSize: 12,
+    fontSize: 25,
     fontWeight: 'bold',
   },
   dateText: {
-    fontSize: 12,
+    fontSize: 15,
   },
   calendar: {
     marginBottom: 30,
@@ -244,13 +263,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   mealText: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
     textDecorationLine: 'underline',
   },
   descriptionText: {
-    fontSize: 16,
-    marginTop: 5,
+    fontSize: 18,
+    marginTop: 8,
   },
   optionsText: {
     fontSize: 14,
@@ -258,7 +277,7 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
   mealImage: {
-    width: 250,
+    width: 200,
     height: 250,
     resizeMode: 'contain',
   },
@@ -278,9 +297,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   circleDate: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#FFA500', // You can customize the color
@@ -289,8 +308,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#0000FF', // You can customize the color for the selected date
   },
   dateButtonText: {
-    fontSize: 14,
+    fontSize: 20,
   },
+  navigationText: {
+    fontSize: 18, // Adjust the size as needed
+    marginHorizontal: 5,
+  }
   
 });
 

@@ -28,7 +28,9 @@ const Feedback = () => {
             <Icon
               name={star <= rating ? 'star' : 'star-outline'}
               type='ionicon'
-              color={star <= rating ? 'yellow' : 'gray'}
+              color={star <= rating ? 'orange' : 'black'}
+              size={35} 
+            
             />
           </TouchableOpacity>
         ))}
@@ -46,7 +48,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 20,
+    paddingHorizontal: 30,
   },
   heading: {
     fontSize: 20,
@@ -55,7 +57,7 @@ const styles = StyleSheet.create({
   },
   starContainer: {
     flexDirection: 'row',
-    marginBottom: 20,
+    marginBottom: 30,
   },
   rateButton: {
     backgroundColor: 'blue',

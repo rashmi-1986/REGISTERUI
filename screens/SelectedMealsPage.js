@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView} from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const SelectedMealsPage= () => {
+const SelectedMealsPage = ({ route }) => {
   const navigation = useNavigation();
+  const { selectedItems } = route.params;
 
+  // Define the meals array
   const meals = [
     'Breakfast',
     'Morning Snack',
@@ -14,77 +16,41 @@ const SelectedMealsPage= () => {
     'Evening Snack',
   ];
 
-  // Initialize state to keep track of selected items for each meal
-  const [selectedItemsByMeal, setSelectedItemsByMeal] = useState({
-    Breakfast: false,
-    'Morning Snack': false,
-    Lunch: false,
-    'Afternoon Snack': false,
-    Dinner: false,
-    'Evening Snack': false,
-  });
-
-// Function to navigate to the next page with accumulated selected items
+  // Function to navigate to the home page
   const navigateToHomePage = () => {
-    const selectedItems = Object.entries(selectedItemsByMeal)
-      .filter(([_, isSelected]) => isSelected)
-      .map(([meal]) => meal);
-
-    navigation.navigate('HomePage', { selectedItems });
-  };
-// Inside SelectedMealsPage.js
-const SelectedMealsPage = ({ route }) => {
-  const { selectedItems } = route.params;
-
-  // Add a check to ensure route.params is defined
-  if (!route.params || !route.params.selectedItems) {
-    return <Text>No selected items found</Text>;
-  }
-
-  // Function to update selected items for a specific meal
-  const handleMealButtonPress = (meal) => {
-    setSelectedItemsByMeal((prevSelectedItems) => ({
-      ...prevSelectedItems,
-      [meal]: !prevSelectedItems[meal],
-    }));
+    navigation.navigate('HomePage');
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.scrollViewContent}>
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Selected Meals</Text>
-      {selectedItems.map((meal, index) => (
-        <Text key={index} style={styles.selectedItem}>
-          {meal}
-        </Text>
+      {meals.map((meal, index) => (
+        <View
+          key={index}
+          style={[
+            styles.mealButton,
+            { backgroundColor: selectedItems.includes(meal) ? 'blue' : 'transparent' },
+          ]}
+        >
+          <Text style={styles.mealButtonText}>{meal}</Text>
+        </View>
       ))}
-    </View>
-    <TouchableOpacity style={styles.nextButton} onPress={navigateToHomePage}>
+      <TouchableOpacity style={styles.nextButton} onPress={navigateToHomePage}>
         <Text style={styles.buttonText}>Next</Text>
       </TouchableOpacity>
     </ScrollView>
   );
 };
-}
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     padding: 20,
     alignItems: 'center',
-    justifyContent: 'center',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  selectedItem: {
-    fontSize: 18,
-    marginBottom: 5,
-  },
-  subtitle: {
-    fontSize: 16,
     marginBottom: 20,
   },
   mealButton: {
@@ -114,6 +80,5 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
-
 
 export default SelectedMealsPage;

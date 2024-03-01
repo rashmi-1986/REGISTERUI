@@ -4,7 +4,6 @@ import Signup from "./Signup";
 import HomePage from "./HomePage";
 import BreakfastPage from "./BreakfastPage";
 import TermsAndConditions from "./TermsAndConditions";
-import FirstPage from "./SelectedMealsPage";
 import MorningSnackPage from "./MorningSnackPage";
 import LunchPage from "./LunchPage";
 import AfternoonSnackPage from "./AfternoonSnackPage";
@@ -24,7 +23,6 @@ export {
     HomePage,
     BreakfastPage,
     TermsAndConditions,
-    FirstPage,
     MorningSnackPage,
     LunchPage,
     AfternoonSnackPage,

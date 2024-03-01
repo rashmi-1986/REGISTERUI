@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { Login, Signup, Welcome, HomePage, BreakfastPage, TermsAndConditions, FirstPage, MorningSnackPage, LunchPage, AfternoonSnackPage, EveningSnackPage, DinnerPage, Feedback, MealSelectionPage, SelectedMealsPage } from "./screens";
+import { Login, Signup, Welcome, HomePage, BreakfastPage, TermsAndConditions, MorningSnackPage, LunchPage, AfternoonSnackPage, EveningSnackPage, DinnerPage, Feedback, MealSelectionPage, SelectedMealsPage } from "./screens";
 import Toast from 'react-native-toast-message';
 import { View, StatusBar } from 'react-native';
 
@@ -62,13 +62,6 @@ const App = () => {
           }}
         />
 
-        <Stack.Screen
-          name="FirstPage"
-          component={FirstPage}
-          options={{
-            headerShown: false
-          }}
-          />
 
         <Stack.Screen
           name="MorningSnackPage"
