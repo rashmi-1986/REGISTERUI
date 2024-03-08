@@ -32,7 +32,7 @@ const Login = ({ navigation }) => {
       };
 
       const response = await
-       axios.post('http://192.168.0.44:3000/auth/login', userData);
+       axios.post('http://localhost:3000/auth/login', userData);
 
       console.log('Login successful:', response.data);
 

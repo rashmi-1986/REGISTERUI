@@ -124,6 +124,7 @@ const Welcome = ({ navigation }) => {
                         }}
                     />
 
+                    
 
                     <View style={{
                         flexDirection: "row",

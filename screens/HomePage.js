@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, ScrollView, Image, StyleSheet } from 'rea
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+
 const HomePage = () => {
   
   

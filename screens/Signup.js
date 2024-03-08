@@ -65,14 +65,14 @@ const Signup = ({ navigation }) => {
       const userData = {
         IDnumber:idNumber,
         Fullname:Fullname, 
-        Gender: gender,
+        gender: gender,
         username: email,
         password: password,
       };
       console.log('SignUp Payload:', userData);
 
       const response = await 
-      axios.post('http://192.168.0.44:3000/auth/register', userData);
+      axios.post('http://localhost:3000/auth/register', userData);
 
       console.log('User registration successful:', response.data);
 
