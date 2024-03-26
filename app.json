@@ -1,15 +1,15 @@
 {
   "expo": {
-    "name": "LOGIN-REGISTER-UI",
+    "name": "Mind-Diet",
     "slug": "LOGIN-REGISTER-UI",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/SignupPageimage.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/SignupPageimage.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#90ee90"
     },
     "assetBundlePatterns": [
       "**/*"

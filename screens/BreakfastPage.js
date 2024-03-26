@@ -1,9 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet, Animated } from 'react-native';
 import { Icon, Overlay } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 
 const BreakfastPage = () => {
+  const [mealPlan, setMealPlan] = useState(null);
+
+  useEffect(() => {
+    fetchMealPlan('Breakfast');
+  }, []);
+
+  const fetchMealPlan = async (mealType) => {
+    try {
+      const response = await axios.post('http://localhost:3000/Gen/diet-plan', {
+        IDnumber: '', // Adjust IDnumber as needed
+        Day: '', // Adjust Day as needed
+        Meal: mealType,
+      });
+
+      setMealPlan(response.data.dietPlan);
+    } catch (error) {
+      console.error('Error fetching meal plan:', error);
+    }
+  };
+
   const [isAlternativeVisible, setAlternativeVisible] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date());
   const navigation = useNavigation();
@@ -129,6 +150,20 @@ style={styles.mealOption}>
         <Text>Alternative Option 2</Text>
         <Text>Alternative Option 3</Text>
       </Overlay>
+
+      {mealPlan && (
+        <View>
+          <Text>Day: {mealPlan.Day}</Text>
+          <Text>Meal: {mealPlan.Meal}</Text>
+          <Text>Items:</Text>
+          <View>
+            {mealPlan.Items.map((item, index) => (
+              <Text key={index}>{item.name} - {item.quantity}</Text>
+            ))}
+          </View>
+          <Text>Recipe: {mealPlan.Recipe}</Text>
+        </View>
+      )}
     </View>
   );
 };

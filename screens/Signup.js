@@ -72,14 +72,16 @@ const Signup = ({ navigation }) => {
       console.log('SignUp Payload:', userData);
 
       const response = await 
-      axios.post('http://localhost:3000/auth/register', userData);
+      axios.post('http://192.168.0.44:3000/auth/register', userData);
 
       console.log('User registration successful:', response.data);
+
+      navigation.navigate('HomePage', { gender: gender });
 
       // Show success message
       showToast('success', 'Registration Successful', 'You have successfully registered. Now you can log in.'); 
       navigation.navigate('Login'); 
-      navigation.navigate('HomePage', { gender: gender });
+      //navigation.navigate('HomePage', { gender: gender });
     } 
     catch (error) {
       console.error('Error signing up:', error);

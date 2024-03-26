@@ -32,9 +32,11 @@ const Login = ({ navigation }) => {
       };
 
       const response = await
-       axios.post('http://localhost:3000/auth/login', userData);
+       axios.post('http://192.168.0.44:3000/auth/login', userData);
 
       console.log('Login successful:', response.data);
+
+      navigation.navigate('MealSelectionPage', { gender: response.data.gender });
 
       // Show success message
       showToast('success', 'Login Successful', 'You have successfully logged in.');
